@@ -1,8 +1,17 @@
 import { Module } from '@nestjs/common';
-import { ConfigService } from './config.service';
+import { ConfigModule as NestConfigModule } from '@nestjs/config';
+import appConfig from './app.config';
+import databaseConfig from './database.config';
 
 @Module({
-  providers: [ConfigService],
-  exports: [ConfigService],
+  imports: [
+    NestConfigModule.forRoot({
+      isGlobal: true,
+      load: [
+        () => ({ app: appConfig() }),
+        () => ({ database: databaseConfig() }),
+      ],
+    }),
+  ],
 })
 export class ConfigModule {}
