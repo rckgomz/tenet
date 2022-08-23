@@ -1,18 +1,19 @@
 import { VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
+import { AppConfig } from '@tenet/config';
 import { AcquisitionModule } from './acquisition.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AcquisitionModule);
 
-  const config = app.get(ConfigService);
+  const config = app.get<AppConfig>(ConfigService);
   app.enableVersioning({
     type: VersioningType.URI,
-    defaultVersion: config.get('app.defaultVersion'),
+    defaultVersion: config.defaultVersion,
   });
-  app.setGlobalPrefix(config.get('app.globalPrefix'));
+  app.setGlobalPrefix(config.globalPrefix);
 
-  await app.listen(3000);
+  await app.listen(config.port);
 }
 bootstrap();
