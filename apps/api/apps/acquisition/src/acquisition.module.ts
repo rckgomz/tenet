@@ -1,10 +1,44 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@tenet/config';
+import { LoggerModule } from 'nestjs-pino';
 import { AcquisitionController } from './acquisition.controller';
 import { AcquisitionService } from './acquisition.service';
 
 @Module({
-  imports: [ConfigModule],
+  imports: [
+    ConfigModule,
+    LoggerModule.forRoot(<any>{
+      pinoHttp: {
+        level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info',
+        customProps: (req, res) => ({
+          context: 'HTTP',
+        }),
+        genReqId: (req, res) => {
+          if (req.id) return req.id;
+          let id = req.get('X-Request-Id');
+          if (id) return id;
+          id = crypto.randomUUID();
+          res.header('X-Request-Id', id);
+          return id;
+        },
+        transport:
+          process.env.NODE_ENV === 'development'
+            ? {
+                target: 'pino-pretty',
+                options: {
+                  colorize: true,
+                  // translateTime: 'UTC:mm/dd/yyyy h:MM:ss TT Z',
+                  ignore: 'hostname',
+                  singleLine: true,
+                  translateTime: 'mm/dd/yyyy h:MM:ss TT Z',
+                  messageFormat: '{req.headers.X-Request-Id} [{context}] {msg}',
+                  errorLikeObjectKeys: ['err', 'error'],
+                },
+              }
+            : undefined,
+      },
+    }),
+  ],
   controllers: [AcquisitionController],
   providers: [AcquisitionService],
 })
