@@ -5,7 +5,7 @@ import { EmailType } from './email.type';
 import { Person } from './person.entity';
 
 @Entity()
-@Index(['person.id', 'email'], { unique: true })
+@Index(['person.id', 'value'], { unique: true })
 export class Email extends BaseEntity {
   @Column('enum', {
     enum: ['primary', 'secondary', 'business'],
@@ -15,7 +15,7 @@ export class Email extends BaseEntity {
 
   @Column('text')
   @IsEmail()
-  email: string;
+  value: string;
 
   @ManyToOne(() => Person, (person) => person.emails)
   person: Person;

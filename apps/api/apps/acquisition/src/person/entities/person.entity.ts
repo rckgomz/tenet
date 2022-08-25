@@ -23,21 +23,27 @@ export class Person extends BaseEntity {
   @IsOptional()
   dateOfBirth: Date;
 
-  @OneToMany(() => Address, (address) => address.person)
+  @OneToMany(() => Address, (address) => address.person, {
+    cascade: true,
+  })
   address: Address[];
 
-  @OneToMany(() => PhoneNumber, (phoneNumber) => phoneNumber.person)
+  @OneToMany(() => PhoneNumber, (phoneNumber) => phoneNumber.person, {
+    cascade: true,
+  })
   phoneNumbers: PhoneNumber[];
 
-  @OneToMany(() => Email, (email) => email.person)
+  @OneToMany(() => Email, (email) => email.person, {
+    cascade: true,
+  })
   emails: Email[];
 
   get primaryEmail() {
-    return this.emails?.find((e) => e.type === 'primary')?.email;
+    return this.emails?.find((e) => e.type === 'primary')?.value;
   }
 
   get primaryPhoneNumber() {
-    return this.phoneNumbers?.find((p) => p.type === 'primary')?.number;
+    return this.phoneNumbers?.find((p) => p.type === 'primary')?.value;
   }
 
   get primaryAddress() {
