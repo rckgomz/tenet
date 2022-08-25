@@ -92,6 +92,7 @@ export class PersonService {
     const newPhoneNumber = this.phoneRepo.create({
       person,
     });
+    newPhoneNumber.value = createPhoneNumberDto.number;
     const mergedPhoneNumber = plainToClassFromExist(
       newPhoneNumber,
       createPhoneNumberDto,

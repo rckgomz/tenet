@@ -1,1 +1,1 @@
-export type PhoneType = 'primary' | 'secondary' | 'sessional';
+export type PhoneType = 'primary' | 'secondary' | 'business';

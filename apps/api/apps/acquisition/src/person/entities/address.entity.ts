@@ -7,7 +7,7 @@ import { Person } from './person.entity';
 @Entity()
 export class Address extends BaseEntity {
   @Column('enum', {
-    enum: ['primary', 'secondary', 'mailing', 'seassoning'],
+    enum: ['primary', 'secondary', 'mailing', 'sessional'],
     default: 'primary',
   })
   type: AddressType;

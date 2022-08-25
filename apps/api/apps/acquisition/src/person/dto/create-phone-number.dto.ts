@@ -1,16 +1,15 @@
-import { Exclude, Expose, Transform } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { IsEnum } from 'class-validator';
-import { EmailType } from '../entities/email.type';
+import { PhoneNumberType } from '../entities/PhoneNumberType';
 
 @Exclude()
 export class CreatePhoneNumberDto {
   @IsEnum(['primary', 'secondary', 'business'])
   @Expose()
-  type: EmailType;
+  type: PhoneNumberType;
 
   @Expose({
     name: 'value',
   })
-  @Transform(({ value }: { value: string }) => value?.toLowerCase())
-  value: string;
+  number: string;
 }

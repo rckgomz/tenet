@@ -1,1 +1,1 @@
-export type AddressType = 'primary' | 'secondary' | 'mailing' | 'seassoning';
+export type AddressType = 'primary' | 'secondary' | 'mailing' | 'sessional';
