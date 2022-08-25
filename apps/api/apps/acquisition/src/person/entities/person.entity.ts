@@ -1,6 +1,7 @@
 import { BaseEntity } from '@tenet/database';
 import { IsNumberString, IsOptional } from 'class-validator';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
+import { Applicant } from '../../loan-application';
 import { Address } from './address.entity';
 import { Email } from './email.entity';
 import { PhoneNumber } from './phone.entity';
@@ -37,6 +38,9 @@ export class Person extends BaseEntity {
     cascade: true,
   })
   emails: Email[];
+
+  @OneToMany(() => Applicant, (applicant) => applicant.person)
+  applicants: Applicant[];
 
   get primaryEmail() {
     return this.emails?.find((e) => e.type === 'primary')?.value;

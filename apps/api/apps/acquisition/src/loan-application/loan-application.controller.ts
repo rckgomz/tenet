@@ -11,7 +11,7 @@ import { LoanApplicationService } from './loan-application.service';
 import { CreateLoanApplicationDto } from './dto/create-loan-application.dto';
 import { UpdateLoanApplicationDto } from './dto/update-loan-application.dto';
 
-@Controller('loan-application')
+@Controller('loan-applications')
 export class LoanApplicationController {
   constructor(
     private readonly loanApplicationService: LoanApplicationService,
