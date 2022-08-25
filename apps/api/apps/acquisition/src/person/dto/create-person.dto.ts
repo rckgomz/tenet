@@ -1,4 +1,4 @@
-import { Transform } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import {
   IsDate,
   IsEmail,
@@ -8,30 +8,38 @@ import {
   IsString,
 } from 'class-validator';
 
+@Exclude()
 export class CreatePersonDto {
+  @Expose()
   @IsString()
-  firstName: string;
+  readonly firstName: string;
 
   @IsString()
-  lastName: string;
+  @Expose()
+  readonly lastName: string;
 
   @IsNumberString()
   @IsOptional()
-  ssn: string;
+  @Expose()
+  readonly ssn: string;
 
   @IsDate()
   @IsOptional()
-  dateOfBirth: Date;
+  @Expose()
+  readonly dateOfBirth: Date;
 
   @IsEmail()
-  @Transform(({ value }: { value: string }) => value.toLowerCase())
-  primaryEmail: string;
+  @Expose()
+  @Transform(({ value }: { value: string }) => value?.toLowerCase())
+  readonly primaryEmail: string;
 
   // @IsPhoneNumber('US')
-  primaryPhoneNumber: string;
+  @Expose()
+  readonly primaryPhoneNumber: string;
 
   @IsOptional()
-  primaryAddress: {
+  @Expose()
+  readonly primaryAddress: {
     addressLine1: string;
   };
 }

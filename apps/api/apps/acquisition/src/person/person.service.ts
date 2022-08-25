@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { plainToClassFromExist } from 'class-transformer';
+import { plainToClass, plainToClassFromExist } from 'class-transformer';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { Person } from './entities/person.entity';
 import { Email } from './entities/email.entity';
 import { PhoneNumber } from './entities/phone.entity';
+import { ReturnPersonDto } from './dto/return-person.dto';
 
 @Injectable()
 export class PersonService {
@@ -19,7 +20,7 @@ export class PersonService {
     private readonly phoneRepo: Repository<PhoneNumber>,
   ) {}
 
-  create(createPersonDto: CreatePersonDto) {
+  async create(createPersonDto: CreatePersonDto) {
     const person = this.repo.create();
     const newPerson = plainToClassFromExist(person, createPersonDto);
 
@@ -36,20 +37,33 @@ export class PersonService {
     person.emails = [email];
     person.phoneNumbers = [phone];
 
-    console.log(person);
-    return this.repo.save(newPerson);
+    const savedPerson = await this.repo.save(newPerson);
+
+    return plainToClass(ReturnPersonDto, savedPerson);
   }
 
-  findAll() {
-    return this.repo.find();
+  async findAll() {
+    const data = await this.repo.find({
+      relations: {
+        emails: true,
+        phoneNumbers: true,
+      },
+    });
+    return data.map((d) => plainToClass(ReturnPersonDto, d));
   }
 
   findOne(id: string) {
-    return this.repo.findOneBy({ id });
+    return plainToClass(
+      ReturnPersonDto,
+      this.repo.findOne({
+        where: { id },
+        relations: { emails: true, phoneNumbers: true },
+      }),
+    );
   }
 
   update(id: string, updatePersonDto: UpdatePersonDto) {
-    return this.repo.update(id, updatePersonDto);
+    return plainToClass(ReturnPersonDto, this.repo.update(id, updatePersonDto));
   }
 
   remove(id: string) {
