@@ -1,6 +1,7 @@
 import { BaseEntity } from '@tenet/database';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { Address } from './address.entity';
+import { Email } from './email.entity';
 import { PhoneNumber } from './phone.entity';
 
 @Entity()
@@ -20,4 +21,7 @@ export class Person extends BaseEntity {
 
   @OneToMany(() => PhoneNumber, (phoneNumber) => phoneNumber.person)
   phoneNumbers: PhoneNumber[];
+
+  @OneToMany(() => Email, (email) => email.person)
+  emails: Email[];
 }
