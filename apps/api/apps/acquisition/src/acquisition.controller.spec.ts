@@ -11,7 +11,9 @@ describe('AcquisitionController', () => {
       providers: [AcquisitionService],
     }).compile();
 
-    acquisitionController = app.get<AcquisitionController>(AcquisitionController);
+    acquisitionController = app.get<AcquisitionController>(
+      AcquisitionController,
+    );
   });
 
   describe('root', () => {
