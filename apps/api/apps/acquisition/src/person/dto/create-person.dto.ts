@@ -1,7 +1,8 @@
+import { Transform } from 'class-transformer';
 import {
   IsDate,
   IsEmail,
-  IsMobilePhone,
+  IsPhoneNumber,
   IsNumberString,
   IsOptional,
   IsString,
@@ -23,9 +24,10 @@ export class CreatePersonDto {
   dateOfBirth: Date;
 
   @IsEmail()
+  @Transform(({ value }: { value: string }) => value.toLowerCase())
   primaryEmail: string;
 
-  @IsMobilePhone('us')
+  // @IsPhoneNumber('US')
   primaryPhoneNumber: string;
 
   @IsOptional()

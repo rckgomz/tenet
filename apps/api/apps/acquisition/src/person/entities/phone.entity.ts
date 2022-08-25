@@ -1,12 +1,12 @@
 import { BaseEntity } from '@tenet/database';
-import { IsMobilePhone } from 'class-validator';
+import { IsPhoneNumber } from 'class-validator';
 import { Column, Entity, Index, ManyToOne } from 'typeorm';
 import { Person } from './person.entity';
 import { PhoneNumberType } from './PhoneNumberType';
 import { PhoneType } from './PhoneType';
 
 @Entity()
-@Index(['person.id', 'number'], { unique: true })
+@Index(['person.id', 'value'], { unique: true })
 export class PhoneNumber extends BaseEntity {
   @Column('enum', {
     enum: ['primary', 'secondary', 'sessional'],
@@ -18,8 +18,8 @@ export class PhoneNumber extends BaseEntity {
   numberType: PhoneNumberType;
 
   @Column('text')
-  @IsMobilePhone('us')
-  number: string;
+  // @IsPhoneNumber('US')
+  value: string;
 
   @ManyToOne(() => Person, (person) => person.address)
   person: Person;
