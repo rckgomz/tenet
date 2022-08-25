@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { plainToClassFromExist } from 'class-transformer';
-import { CreatePersonDto } from './dto/create-person.dto';
-import { UpdatePersonDto } from './dto/update-person.dto';
-import { Person } from './entities/person.entity';
-import { Email } from './entities/email.entity';
-import { PhoneNumber } from './entities/phone.entity';
-import { CreateEmailDto } from './dto/create-email.dto';
-import { CreatePhoneNumberDto } from './dto/create-phone-number.dto';
+import {
+  CreateEmailDto,
+  CreatePersonDto,
+  CreatePhoneNumberDto,
+  UpdatePersonDto,
+} from './dto';
+import { Email, Person, PhoneNumber } from './entities';
 
 @Injectable()
 export class PersonService {

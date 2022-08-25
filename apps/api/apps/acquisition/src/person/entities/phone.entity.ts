@@ -3,8 +3,7 @@ import { Transform } from 'class-transformer';
 import { IsPhoneNumber } from 'class-validator';
 import { Column, Entity, Index, ManyToOne } from 'typeorm';
 import { Person } from './person.entity';
-import { PhoneNumberType } from './PhoneNumberType';
-import { PhoneType } from './PhoneType';
+import { PhoneNumberType, PhoneType } from '../types';
 
 @Entity()
 @Index(['person.id', 'value'], { unique: true })
