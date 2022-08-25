@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@tenet/config';
+import { DatabaseModule } from '@tenet/database';
 import { LoggerModule } from 'nestjs-pino';
 import { AcquisitionController } from './acquisition.controller';
 import { AcquisitionService } from './acquisition.service';
+import { PersonModule } from './person/person.module';
 
 @Module({
   imports: [
     ConfigModule,
+    DatabaseModule,
     LoggerModule.forRoot(<any>{
       pinoHttp: {
         level: process.env.NODE_ENV !== 'production' ? 'debug' : 'info',
@@ -38,6 +41,7 @@ import { AcquisitionService } from './acquisition.service';
             : undefined,
       },
     }),
+    PersonModule,
   ],
   controllers: [AcquisitionController],
   providers: [AcquisitionService],
