@@ -32,7 +32,9 @@ export class LoanApplication extends BaseEntity {
   @IsCurrency()
   itemValue: number;
 
-  @OneToMany(() => Applicant, (applicant) => applicant.loanApplication)
+  @OneToMany(() => Applicant, (applicant) => applicant.loanApplication, {
+    cascade: true,
+  })
   applicants: Applicant[];
 
   @OneToOne(() => LoanOffer)

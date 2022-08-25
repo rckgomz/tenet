@@ -4,8 +4,6 @@ import { DatabaseModule } from '@tenet/database';
 import { LoggerModule } from 'nestjs-pino';
 import { AcquisitionController } from './acquisition.controller';
 import { AcquisitionService } from './acquisition.service';
-import { PersonModule } from './person/person.module';
-import { ProductModule } from './product';
 import { LoanApplicationModule } from './loan-application';
 
 @Module({
@@ -43,8 +41,6 @@ import { LoanApplicationModule } from './loan-application';
             : undefined,
       },
     }),
-    PersonModule,
-    ProductModule,
     LoanApplicationModule,
   ],
   controllers: [AcquisitionController],

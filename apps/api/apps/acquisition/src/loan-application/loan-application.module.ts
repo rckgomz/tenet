@@ -3,14 +3,17 @@ import { LoanApplicationService } from './loan-application.service';
 import { LoanApplicationController } from './loan-application.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Applicant, LoanApplication, LoanOffer } from './entities';
-import { Product, ProductModule } from '../product';
+import { ProductModule } from '../product';
+import { PersonModule } from '../person';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([LoanApplication, LoanOffer, Applicant, Product]),
+    TypeOrmModule.forFeature([LoanApplication, LoanOffer, Applicant]),
     ProductModule,
+    PersonModule,
   ],
   controllers: [LoanApplicationController],
   providers: [LoanApplicationService],
+  exports: [LoanApplicationService, ProductModule, PersonModule],
 })
 export class LoanApplicationModule {}
