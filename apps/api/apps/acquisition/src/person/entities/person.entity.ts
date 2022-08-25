@@ -16,6 +16,9 @@ export class Person extends BaseEntity {
   @Index({ unique: true })
   ssn: string;
 
+  @Column('date')
+  dateOfBirth: Date;
+
   @OneToMany(() => Address, (address) => address.person)
   address: Address[];
 
