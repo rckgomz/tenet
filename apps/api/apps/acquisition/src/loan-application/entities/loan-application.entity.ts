@@ -1,4 +1,5 @@
 import { BaseEntity } from '@tenet/database';
+import { IsCurrency } from 'class-validator';
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { Product } from '../../product';
 import { LoanApplicationStatusType } from './loan-application-status.type';
@@ -14,6 +15,12 @@ export class LoanApplication extends BaseEntity {
     default: ['openned'],
   })
   status: LoanApplicationStatusType;
+
+  @IsCurrency()
+  amount: number;
+
+  @IsCurrency()
+  itemValue: number;
 
   @OneToOne(() => LoanOffer)
   @JoinColumn()
