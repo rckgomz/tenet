@@ -13,7 +13,7 @@ import { UpdatePersonDto } from './dto/update-person.dto';
 import { CreateEmailDto } from './dto/create-email.dto';
 import { plainToClass } from 'class-transformer';
 import { ReturnPersonDto } from './dto/return-person.dto';
-import { ReturnEmailDto } from './dto/return-address.dto';
+import { ReturnEmailDto } from './dto/return-email.dto';
 
 @Controller('persons')
 export class PersonController {
@@ -55,7 +55,7 @@ export class PersonController {
   createEmail(@Param('id') id: string, @Body() createEmailDto: CreateEmailDto) {
     return plainToClass(
       ReturnEmailDto,
-      this.personService.addAddress(id, createEmailDto),
+      this.personService.addEmail(id, createEmailDto),
     );
   }
 

@@ -64,7 +64,7 @@ export class PersonService {
     return this.repo.delete(id);
   }
 
-  async addAddress(id: string, createEmailDto: CreateEmailDto) {
+  async addEmail(id: string, createEmailDto: CreateEmailDto) {
     const person = await this.repo.findOneBy({ id });
     const newEmail = this.emailRepo.create({
       person,
