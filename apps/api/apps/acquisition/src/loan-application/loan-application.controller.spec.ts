@@ -11,7 +11,9 @@ describe('LoanApplicationController', () => {
       providers: [LoanApplicationService],
     }).compile();
 
-    controller = module.get<LoanApplicationController>(LoanApplicationController);
+    controller = module.get<LoanApplicationController>(
+      LoanApplicationController,
+    );
   });
 
   it('should be defined', () => {
