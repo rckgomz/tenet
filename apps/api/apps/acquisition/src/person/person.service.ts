@@ -8,6 +8,7 @@ import { Person } from './entities/person.entity';
 import { Email } from './entities/email.entity';
 import { PhoneNumber } from './entities/phone.entity';
 import { CreateEmailDto } from './dto/create-email.dto';
+import { CreatePhoneNumberDto } from './dto/create-phone-number.dto';
 
 @Injectable()
 export class PersonService {
@@ -79,6 +80,43 @@ export class PersonService {
     return this.emailRepo.find({
       where: {
         person: { id },
+      },
+      relations: {
+        person: true,
+      },
+    });
+  }
+
+  async addPhoneNumber(id: string, createPhoneNumberDto: CreatePhoneNumberDto) {
+    const person = await this.repo.findOneBy({ id });
+    const newPhoneNumber = this.phoneRepo.create({
+      person,
+      value: createPhoneNumberDto.number,
+    });
+    const mergedPhoneNumber = plainToClassFromExist(
+      newPhoneNumber,
+      createPhoneNumberDto,
+    );
+
+    return this.phoneRepo.save(mergedPhoneNumber);
+  }
+
+  getPhoneNumbers(id: string) {
+    return this.phoneRepo.find({
+      where: {
+        person: { id },
+      },
+      relations: {
+        person: true,
+      },
+    });
+  }
+
+  getPhoneNumber(id: string, phoneNumberId: string) {
+    return this.phoneRepo.find({
+      where: {
+        person: { id },
+        id: phoneNumberId,
       },
       relations: {
         person: true,

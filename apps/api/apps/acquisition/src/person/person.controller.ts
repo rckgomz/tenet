@@ -14,6 +14,7 @@ import { CreateEmailDto } from './dto/create-email.dto';
 import { plainToClass } from 'class-transformer';
 import { ReturnPersonDto } from './dto/return-person.dto';
 import { ReturnEmailDto } from './dto/return-email.dto';
+import { CreatePhoneNumberDto } from './dto/create-phone-number.dto';
 
 @Controller('persons')
 export class PersonController {
@@ -62,5 +63,32 @@ export class PersonController {
   @Get(':id/emails')
   getEmails(@Param('id') id: string) {
     return plainToClass(ReturnEmailDto, this.personService.getEmails(id));
+  }
+
+  @Post(':id/phone-number')
+  createPhoneNumber(
+    @Param('id') id: string,
+    @Body() createPhoneNumberDto: CreatePhoneNumberDto,
+  ) {
+    return plainToClass(
+      CreatePhoneNumberDto,
+      this.personService.addPhoneNumber(id, createPhoneNumberDto),
+    );
+  }
+
+  @Get(':id/phone-number')
+  getPhoneNumbers(@Param('id') id: string) {
+    return plainToClass(ReturnEmailDto, this.personService.getPhoneNumbers(id));
+  }
+
+  @Get(':id/phone-number/:phoneNumberId')
+  getPhoneNumber(
+    @Param('id') id: string,
+    @Param('phoneNumberId') phoneNumberId: string,
+  ) {
+    return plainToClass(
+      ReturnEmailDto,
+      this.personService.getPhoneNumber(id, phoneNumberId),
+    );
   }
 }
