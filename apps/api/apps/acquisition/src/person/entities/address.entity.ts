@@ -1,4 +1,5 @@
 import { BaseEntity } from '@tenet/database';
+import { Transform } from 'class-transformer';
 import { IsPostalCode, Matches } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
 import { AddressType } from './address.type';
@@ -28,6 +29,7 @@ export class Address extends BaseEntity {
   state: string;
 
   @Column('varchar', { length: 9 })
+  @Transform(({ value }: { value: string }) => value?.toUpperCase())
   @IsPostalCode('US')
   zipCode: string;
 

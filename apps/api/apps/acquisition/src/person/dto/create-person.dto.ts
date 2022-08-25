@@ -28,12 +28,13 @@ export class CreatePersonDto {
   @Expose()
   readonly dateOfBirth: Date;
 
+  @Transform(({ value }: { value: string }) => value?.toLowerCase())
   @IsEmail()
   @Expose()
-  @Transform(({ value }: { value: string }) => value?.toLowerCase())
   readonly primaryEmail: string;
 
-  // @IsPhoneNumber('US')
+  @Transform(({ value }: { value: string }) => value?.replace('-', ''))
+  @IsPhoneNumber('US')
   @Expose()
   readonly primaryPhoneNumber: string;
 

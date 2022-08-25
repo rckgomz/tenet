@@ -1,5 +1,5 @@
-import { Exclude, Expose } from 'class-transformer';
-import { IsEnum } from 'class-validator';
+import { Exclude, Expose, Transform } from 'class-transformer';
+import { IsEnum, IsPhoneNumber } from 'class-validator';
 import { PhoneNumberType } from '../entities/PhoneNumberType';
 
 @Exclude()
@@ -8,8 +8,8 @@ export class CreatePhoneNumberDto {
   @Expose()
   type: PhoneNumberType;
 
-  @Expose({
-    name: 'value',
-  })
+  @Expose()
+  @Transform(({ value }: { value: string }) => value?.replace('-', ''))
+  @IsPhoneNumber('US')
   number: string;
 }

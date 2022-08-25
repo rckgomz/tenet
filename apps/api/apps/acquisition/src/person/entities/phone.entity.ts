@@ -1,4 +1,5 @@
 import { BaseEntity } from '@tenet/database';
+import { Transform } from 'class-transformer';
 import { IsPhoneNumber } from 'class-validator';
 import { Column, Entity, Index, ManyToOne } from 'typeorm';
 import { Person } from './person.entity';
@@ -18,7 +19,8 @@ export class PhoneNumber extends BaseEntity {
   numberType: PhoneNumberType;
 
   @Column('text')
-  // @IsPhoneNumber('US')
+  @Transform(({ value }: { value: string }) => value?.replace('-', ''))
+  @IsPhoneNumber('US')
   value: string;
 
   @ManyToOne(() => Person, (person) => person.address)
