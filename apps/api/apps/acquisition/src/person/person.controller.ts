@@ -15,7 +15,7 @@ import { plainToClass } from 'class-transformer';
 import { ReturnPersonDto } from './dto/return-person.dto';
 import { ReturnEmailDto } from './dto/return-address.dto';
 
-@Controller('person')
+@Controller('persons')
 export class PersonController {
   constructor(private readonly personService: PersonService) {}
 
@@ -51,11 +51,16 @@ export class PersonController {
     return this.personService.remove(id);
   }
 
-  @Post(':id/email')
+  @Post(':id/emails')
   createEmail(@Param('id') id: string, @Body() createEmailDto: CreateEmailDto) {
     return plainToClass(
       ReturnEmailDto,
       this.personService.addAddress(id, createEmailDto),
     );
+  }
+
+  @Get(':id/emails')
+  getEmails(@Param('id') id: string) {
+    return plainToClass(ReturnEmailDto, this.personService.getEmails(id));
   }
 }

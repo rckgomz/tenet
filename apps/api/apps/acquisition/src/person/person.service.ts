@@ -74,4 +74,15 @@ export class PersonService {
 
     return this.emailRepo.save(newAddress);
   }
+
+  getEmails(id: string) {
+    return this.emailRepo.find({
+      where: {
+        person: { id },
+      },
+      relations: {
+        person: true,
+      },
+    });
+  }
 }
