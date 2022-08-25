@@ -12,11 +12,11 @@ export class Person extends BaseEntity {
   @Column('text')
   lastName: string;
 
-  @Column('varchar', { length: 9 })
+  @Column('varchar', { length: 9, nullable: true })
   @Index({ unique: true })
   ssn: string;
 
-  @Column('date')
+  @Column('date', { nullable: true })
   dateOfBirth: Date;
 
   @OneToMany(() => Address, (address) => address.person)
@@ -27,4 +27,20 @@ export class Person extends BaseEntity {
 
   @OneToMany(() => Email, (email) => email.person)
   emails: Email[];
+
+  get primaryEmail() {
+    return this.emails?.find((e) => e.type === 'primary')?.email;
+  }
+
+  get primaryPhoneNumber() {
+    return this.phoneNumbers?.find((p) => p.type === 'primary')?.number;
+  }
+
+  get primaryAddress() {
+    return this.address?.find((a) => a.type === 'primary');
+  }
+
+  get mailingAddress() {
+    return this.address?.find((a) => a.type === 'mailing');
+  }
 }
