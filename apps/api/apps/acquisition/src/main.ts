@@ -1,4 +1,4 @@
-import { VersioningType } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import {
@@ -23,6 +23,11 @@ async function bootstrap() {
     defaultVersion: appConfig.defaultVersion,
   });
   app.setGlobalPrefix(appConfig.globalPrefix);
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+    }),
+  );
 
   const logger = app.get(Logger);
   await app.listen(appConfig.port, '0.0.0.0', () => {
