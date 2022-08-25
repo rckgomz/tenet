@@ -1,10 +1,11 @@
 import { BaseEntity } from '@tenet/database';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, Index, ManyToOne } from 'typeorm';
 import { Person } from './person.entity';
 import { PhoneNumberType } from './PhoneNumberType';
 import { PhoneType } from './PhoneType';
 
 @Entity()
+@Index(['person.id', 'number'], { unique: true })
 export class PhoneNumber extends BaseEntity {
   @Column('enum', {
     enum: ['primary', 'secondary', 'sessional'],
