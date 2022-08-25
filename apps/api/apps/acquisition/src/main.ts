@@ -6,7 +6,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import { AppConfig } from '@tenet/config';
-import { Logger, LoggerErrorInterceptor } from 'nestjs-pino';
+import { Logger } from 'nestjs-pino';
 import { AcquisitionModule } from './acquisition.module';
 
 async function bootstrap() {
@@ -16,7 +16,6 @@ async function bootstrap() {
     { bufferLogs: true },
   );
   app.useLogger(app.get(Logger));
-  app.useGlobalInterceptors(new LoggerErrorInterceptor());
   const config = app.get(ConfigService);
   const appConfig = config.get<AppConfig>('app');
   app.enableVersioning({
