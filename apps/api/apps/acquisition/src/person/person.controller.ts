@@ -65,7 +65,7 @@ export class PersonController {
     return plainToClass(ReturnEmailDto, this.personService.getEmails(id));
   }
 
-  @Post(':id/phone-number')
+  @Post(':id/phone-numbers')
   createPhoneNumber(
     @Param('id') id: string,
     @Body() createPhoneNumberDto: CreatePhoneNumberDto,
@@ -76,12 +76,12 @@ export class PersonController {
     );
   }
 
-  @Get(':id/phone-number')
+  @Get(':id/phone-numbers')
   getPhoneNumbers(@Param('id') id: string) {
     return plainToClass(ReturnEmailDto, this.personService.getPhoneNumbers(id));
   }
 
-  @Get(':id/phone-number/:phoneNumberId')
+  @Get(':id/phone-numbers/:phoneNumberId')
   getPhoneNumber(
     @Param('id') id: string,
     @Param('phoneNumberId') phoneNumberId: string,
