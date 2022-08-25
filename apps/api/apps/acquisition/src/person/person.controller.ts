@@ -65,6 +65,14 @@ export class PersonController {
     return plainToClass(ReturnEmailDto, this.personService.getEmails(id));
   }
 
+  @Get(':id/emails/:emailId')
+  getEmail(@Param('id') id: string, @Param('emailId') emailId: string) {
+    return plainToClass(
+      ReturnEmailDto,
+      this.personService.getEmail(id, emailId),
+    );
+  }
+
   @Post(':id/phone-numbers')
   createPhoneNumber(
     @Param('id') id: string,

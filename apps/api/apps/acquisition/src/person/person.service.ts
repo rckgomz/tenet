@@ -87,6 +87,18 @@ export class PersonService {
     });
   }
 
+  getEmail(id: string, emailId: string) {
+    return this.emailRepo.find({
+      where: {
+        person: { id },
+        id: emailId,
+      },
+      relations: {
+        person: true,
+      },
+    });
+  }
+
   async addPhoneNumber(id: string, createPhoneNumberDto: CreatePhoneNumberDto) {
     const person = await this.repo.findOneBy({ id });
     const newPhoneNumber = this.phoneRepo.create({
