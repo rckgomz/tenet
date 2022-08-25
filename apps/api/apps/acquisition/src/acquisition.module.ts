@@ -5,7 +5,8 @@ import { LoggerModule } from 'nestjs-pino';
 import { AcquisitionController } from './acquisition.controller';
 import { AcquisitionService } from './acquisition.service';
 import { PersonModule } from './person/person.module';
-import { ProductModule } from './product/product.module';
+import { ProductModule } from './product';
+import { LoanApplicationModule } from './loan-application';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { ProductModule } from './product/product.module';
     }),
     PersonModule,
     ProductModule,
+    LoanApplicationModule,
   ],
   controllers: [AcquisitionController],
   providers: [AcquisitionService],
