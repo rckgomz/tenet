@@ -12,5 +12,5 @@ export class CreatePhoneNumberDto {
     name: 'value',
   })
   @Transform(({ value }: { value: string }) => value?.toLowerCase())
-  number: string;
+  value: string;
 }

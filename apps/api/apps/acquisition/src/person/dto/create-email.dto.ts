@@ -8,10 +8,8 @@ export class CreateEmailDto {
   @Expose()
   type: EmailType;
 
-  @IsEmail()
-  @Expose({
-    name: 'value',
-  })
   @Transform(({ value }: { value: string }) => value?.toLowerCase())
+  @IsEmail()
+  @Expose()
   email: string;
 }

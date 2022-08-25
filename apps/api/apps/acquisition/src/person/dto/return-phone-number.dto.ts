@@ -20,4 +20,7 @@ export class ReturnPhoneNumberDto extends PartialType(CreatePhoneNumberDto) {
   @Expose()
   @Type(() => ReturnLitePersonDto)
   person: ReturnLitePersonDto;
+
+  @Expose()
+  value: string;
 }

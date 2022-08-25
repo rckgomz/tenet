@@ -20,4 +20,7 @@ export class ReturnEmailDto extends PartialType(CreateEmailDto) {
   @Expose()
   @Type(() => ReturnPersonDto)
   person: ReturnPersonDto;
+
+  @Expose()
+  value: string;
 }

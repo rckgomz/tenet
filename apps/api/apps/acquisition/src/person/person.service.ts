@@ -69,11 +69,11 @@ export class PersonService {
     const person = await this.repo.findOneBy({ id });
     const newEmail = this.emailRepo.create({
       person,
-      value: createEmailDto.email,
     });
-    const newAddress = plainToClassFromExist(newEmail, createEmailDto);
+    newEmail.value = createEmailDto.email;
+    const mergedEmail = plainToClassFromExist(newEmail, createEmailDto);
 
-    return this.emailRepo.save(newAddress);
+    return this.emailRepo.save(mergedEmail);
   }
 
   getEmails(id: string) {
@@ -91,7 +91,6 @@ export class PersonService {
     const person = await this.repo.findOneBy({ id });
     const newPhoneNumber = this.phoneRepo.create({
       person,
-      value: createPhoneNumberDto.number,
     });
     const mergedPhoneNumber = plainToClassFromExist(
       newPhoneNumber,
