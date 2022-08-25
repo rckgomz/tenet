@@ -1,4 +1,7 @@
 {
+  "dependencies": {
+    "@nestjs/mapped-types": "*"
+  },
   "name": "@tenet/poc",
   "version": "1.0.0",
   "description": "",
