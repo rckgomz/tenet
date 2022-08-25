@@ -1,4 +1,5 @@
 import { BaseEntity } from '@tenet/database';
+import { IsNumberString, IsOptional } from 'class-validator';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
 import { Address } from './address.entity';
 import { Email } from './email.entity';
@@ -14,9 +15,12 @@ export class Person extends BaseEntity {
 
   @Column('varchar', { length: 9, nullable: true })
   @Index({ unique: true })
+  @IsNumberString()
+  @IsOptional()
   ssn: string;
 
   @Column('date', { nullable: true })
+  @IsOptional()
   dateOfBirth: Date;
 
   @OneToMany(() => Address, (address) => address.person)

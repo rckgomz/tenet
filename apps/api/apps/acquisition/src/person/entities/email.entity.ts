@@ -1,4 +1,5 @@
 import { BaseEntity } from '@tenet/database';
+import { IsEmail } from 'class-validator';
 import { Column, Entity, Index, ManyToOne } from 'typeorm';
 import { EmailType } from './email.type';
 import { Person } from './person.entity';
@@ -13,6 +14,7 @@ export class Email extends BaseEntity {
   type: EmailType;
 
   @Column('text')
+  @IsEmail()
   email: string;
 
   @ManyToOne(() => Person, (person) => person.emails)
