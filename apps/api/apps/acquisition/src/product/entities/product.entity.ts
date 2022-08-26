@@ -9,7 +9,10 @@ export class Product extends BaseEntity {
   name: string;
 
   @Column('enum', { enum: ['car', 'other'], default: 'car' })
-  type: ProductType;
+  type?: ProductType;
+
+  @Column('int4', { default: 72 })
+  termInMonths?: number;
 
   @OneToMany(() => LoanApplication, (application) => application.product)
   loanApplications: LoanApplication[];

@@ -12,4 +12,8 @@ export class CreateProductDto {
   @Expose()
   @IsOptional()
   type?: ProductType;
+
+  @Expose()
+  @IsOptional()
+  termInMonths: number;
 }

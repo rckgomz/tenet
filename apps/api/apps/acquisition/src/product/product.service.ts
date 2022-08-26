@@ -14,6 +14,7 @@ export class ProductService {
     const newProduct = this.repo.create({
       ...createProductDto,
       type: createProductDto.type || 'car',
+      termInMonths: createProductDto.termInMonths || 72,
     });
 
     return this.repo.save(newProduct);
