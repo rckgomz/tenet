@@ -2,18 +2,18 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass, plainToClassFromExist } from 'class-transformer';
 import { Repository } from 'typeorm';
-import { PersonService } from '../person';
-import { ProductService } from '../product';
+import { PersonService } from '../../person';
+import { ProductService } from '../../product';
+import { CreateLoanApplicationDto, UpdateLoanApplicationDto } from '../dto';
+import {
+  LoanApplication,
+  Applicant,
+  LoanApplicationStatusType,
+} from '../entities';
+import { EvaluateInputType } from '../types';
+
 import { CreditReportService } from './credit-report.service';
 import { DesicionMakingEngineService } from './desicion-making-engine.service';
-import { EvaluateInputType } from './evaluate-input.type';
-import { CreateLoanApplicationDto } from './dto/create-loan-application.dto';
-import { UpdateLoanApplicationDto } from './dto/update-loan-application.dto';
-import {
-  Applicant,
-  LoanApplication,
-  LoanApplicationStatusType,
-} from './entities';
 
 @Injectable()
 export class LoanApplicationService {
