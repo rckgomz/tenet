@@ -5,13 +5,17 @@ importers:
   .:
     specifiers:
       '@nestjs/cli': ^9.0.0
+      '@nestjs/mapped-types': '*'
       turbo: ^1.4.3
+    dependencies:
+      '@nestjs/mapped-types': 1.1.0_kwoed2zlma2xzypc5akrjwfna4
     devDependencies:
       '@nestjs/cli': 9.0.0
       turbo: 1.4.3
 
   apps/api:
     specifiers:
+      '@faker-js/faker': ^7.4.0
       '@nestjs/cli': ^9.0.0
       '@nestjs/common': ^9.0.0
       '@nestjs/config': ^2.2.0
@@ -33,6 +37,7 @@ importers:
       eslint-config-prettier: ^8.3.0
       eslint-plugin-prettier: ^4.0.0
       jest: 28.1.2
+      json-rules-engine: ^6.1.2
       nestjs-pino: ^3.1.1
       pg: ^8.8.0
       pino-http: ^8.2.0
@@ -59,6 +64,7 @@ importers:
       '@nestjs/typeorm': 9.0.1_sp4gtzkbiyh24r2ydcb6yqstha
       class-transformer: 0.5.1
       class-validator: 0.13.2
+      json-rules-engine: 6.1.2
       nestjs-pino: 3.1.1_i6unz6wuqvgkfrilibx2liv5zi
       pg: 8.8.0
       pino-http: 8.2.0
@@ -68,6 +74,7 @@ importers:
       typeorm: 0.3.7_pg@8.8.0+ts-node@10.9.1
       typeorm-naming-strategies: 4.1.0_typeorm@0.3.7
     devDependencies:
+      '@faker-js/faker': 7.4.0
       '@nestjs/cli': 9.0.0
       '@nestjs/schematics': 9.0.1_nobats3jkocaued6l3papcxri4
       '@nestjs/testing': 9.0.11_khr6mt6ojlxbw7bo55fknouh34
@@ -497,6 +504,11 @@ packages:
       - supports-color
     dev: true
 
+  /@faker-js/faker/7.4.0:
+    resolution: {integrity: sha512-xDd3Tvkt2jgkx1LkuwwxpNBy/Oe+LkZBTwkgEFTiWpVSZgQ5sc/LenbHKRHbFl0dq/KFeeq/szyyPtpJRKY0fg==}
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
+    dev: true
+
   /@fastify/ajv-compiler/3.1.2:
     resolution: {integrity: sha512-m2nzzQJeuVmeGOB9rnII9sZiY8AZ02a9WMQfMBfK1jxdFnxm3FPYKGbYpPjODj4halNogwpolyugbTNpnDCi0A==}
     dependencies:
@@ -897,6 +909,29 @@ packages:
       tslib: 2.4.0
       uuid: 8.3.2
 
+  /@nestjs/common/9.0.11_j5hagqx4mwzscud4kyjdvubauy:
+    resolution: {integrity: sha512-oYLIcOal3QOwcqt6goXovRNg8ZkalyOMjH0oYYzfJLrait6P7c6nAeWHu4qFDThY7GoZHEanLgji1qlqVEW09g==}
+    peerDependencies:
+      cache-manager: '*'
+      class-transformer: '*'
+      class-validator: '*'
+      reflect-metadata: ^0.1.12
+      rxjs: ^7.1.0
+    peerDependenciesMeta:
+      cache-manager:
+        optional: true
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+    dependencies:
+      iterare: 1.2.1
+      reflect-metadata: 0.1.13
+      rxjs: 7.5.6
+      tslib: 2.4.0
+      uuid: 8.3.2
+    dev: false
+
   /@nestjs/config/2.2.0_3mdbamkp7cmelffjfexsjo7tau:
     resolution: {integrity: sha512-78Eg6oMbCy3D/YvqeiGBTOWei1Jwi3f2pSIZcZ1QxY67kYsJzTRTkwRT8Iv30DbK0sGKc1mcloDLD5UXgZAZtg==}
     peerDependencies:
@@ -960,6 +995,23 @@ packages:
       '@nestjs/common': 9.0.11_allg6cauirbqzgqcmexy2wdnoq
       class-transformer: 0.5.1
       class-validator: 0.13.2
+      reflect-metadata: 0.1.13
+    dev: false
+
+  /@nestjs/mapped-types/1.1.0_kwoed2zlma2xzypc5akrjwfna4:
+    resolution: {integrity: sha512-+2kSly4P1QI+9eGt+/uGyPdEG1hVz7nbpqPHWZVYgoqz8eOHljpXPag+UCVRw9zo2XCu4sgNUIGe8Uk0+OvUQg==}
+    peerDependencies:
+      '@nestjs/common': ^7.0.8 || ^8.0.0 || ^9.0.0
+      class-transformer: ^0.2.0 || ^0.3.0 || ^0.4.0 || ^0.5.0
+      class-validator: ^0.11.1 || ^0.12.0 || ^0.13.0
+      reflect-metadata: ^0.1.12
+    peerDependenciesMeta:
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+    dependencies:
+      '@nestjs/common': 9.0.11_j5hagqx4mwzscud4kyjdvubauy
       reflect-metadata: 0.1.13
     dev: false
 
@@ -1990,6 +2042,11 @@ packages:
     engines: {node: '>=0.8'}
     dev: true
 
+  /clone/2.1.2:
+    resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
+    engines: {node: '>=0.8'}
+    dev: false
+
   /co/4.6.0:
     resolution: {integrity: sha512-QVb0dM5HvG+uaxitm8wONl7jltx8dqhfU33DcqtOZcLSVIKSDDLDi7+0LbAKiyI8hD9u42m2YxXSkMGWThaecQ==}
     engines: {iojs: '>= 1.0.0', node: '>= 0.12.0'}
@@ -2387,6 +2444,10 @@ packages:
   /event-target-shim/5.0.1:
     resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
     engines: {node: '>=6'}
+
+  /eventemitter2/6.4.7:
+    resolution: {integrity: sha512-tYUSVOGeQPKt/eC1ABfhHy5Xd96N3oIijJvN3O9+TsC28T5V9yX9oEfEK5faP0EFSNVOG97qtAS68GBrQB2hDg==}
+    dev: false
 
   /events/3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
@@ -2809,6 +2870,10 @@ packages:
     dependencies:
       function-bind: 1.1.1
     dev: true
+
+  /hash-it/5.0.2:
+    resolution: {integrity: sha512-csU3E/a9QEmEgPPxoShVuMcFWM329IGioEPRvYVBv3r5BFrU8pCfnk3jGEVvriAcwqd+nl6KsNhPPjg8MUzkhQ==}
+    dev: false
 
   /help-me/4.0.1:
     resolution: {integrity: sha512-PLv01Z+OhEPKj2QPYB4kjoCUkopYNPUK3EROlaPIf5bib752fZ+VCvGDAoA+FXo/OwCyLEA4D2e0mX8+Zhcplw==}
@@ -3537,6 +3602,16 @@ packages:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
     dev: true
 
+  /json-rules-engine/6.1.2:
+    resolution: {integrity: sha512-+rtKuJ33HAvFywL9broh42FA9hkZNmS0l1DmgjP7nfGJ9E2i2IsfNH0BcXjyXianp/bXAyYlsSv308AfTuvBwQ==}
+    dependencies:
+      clone: 2.1.2
+      eventemitter2: 6.4.7
+      hash-it: 5.0.2
+      jsonpath-plus: 5.1.0
+      lodash.isobjectlike: 4.0.0
+    dev: false
+
   /json-schema-traverse/0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
     dev: true
@@ -3572,6 +3647,11 @@ packages:
     optionalDependencies:
       graceful-fs: 4.2.10
     dev: true
+
+  /jsonpath-plus/5.1.0:
+    resolution: {integrity: sha512-890w2Pjtj0iswAxalRlt2kHthi6HKrXEfZcn+ZNZptv7F3rUGIeDuZo+C+h4vXBHLEsVjJrHeCm35nYeZLzSBQ==}
+    engines: {node: '>=10.0.0'}
+    dev: false
 
   /kleur/3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
@@ -3624,6 +3704,10 @@ packages:
     dependencies:
       p-locate: 5.0.0
     dev: true
+
+  /lodash.isobjectlike/4.0.0:
+    resolution: {integrity: sha512-bbRt0Dief0yqjkTgpvzisSxnsmY3ZgVJvokHL30UE+ytsvnpNfiNaCJL4XBEWek8koQmrwZidBHb7coXC5vXlA==}
+    dev: false
 
   /lodash.memoize/4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}

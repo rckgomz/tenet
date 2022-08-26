@@ -44,4 +44,9 @@ export class LoanApplicationController {
   remove(@Param('id') id: string) {
     return this.loanApplicationService.remove(id);
   }
+
+  @Patch(':id/submit')
+  submitLoanApplication(@Param('id') id: string) {
+    return this.loanApplicationService.submitLoanApplication(id);
+  }
 }

@@ -21,14 +21,23 @@ export class LoanApplication extends BaseEntity {
   product: Product;
 
   @Column('enum', {
-    enum: ['openned', 'closed', 'submitted', 'approved', 'rejected'],
+    enum: [
+      'openned',
+      'closed',
+      'submitted',
+      'approved',
+      'rejected',
+      'processing',
+    ],
     default: ['openned'],
   })
   status: LoanApplicationStatusType;
 
+  @Column('decimal')
   @IsCurrency()
   amount: number;
 
+  @Column('decimal')
   @IsCurrency()
   itemValue: number;
 

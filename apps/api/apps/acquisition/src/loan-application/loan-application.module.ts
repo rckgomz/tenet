@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Applicant, LoanApplication, LoanOffer } from './entities';
 import { ProductModule } from '../product';
 import { PersonModule } from '../person';
+import { DesicionMakingEngineService } from './desicion-making-engine.service';
+import { CreditReportService } from './credit-report.service';
 
 @Module({
   imports: [
@@ -13,7 +15,17 @@ import { PersonModule } from '../person';
     PersonModule,
   ],
   controllers: [LoanApplicationController],
-  providers: [LoanApplicationService],
-  exports: [LoanApplicationService, ProductModule, PersonModule],
+  providers: [
+    LoanApplicationService,
+    DesicionMakingEngineService,
+    CreditReportService,
+  ],
+  exports: [
+    LoanApplicationService,
+    ProductModule,
+    PersonModule,
+    DesicionMakingEngineService,
+    CreditReportService,
+  ],
 })
 export class LoanApplicationModule {}

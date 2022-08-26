@@ -29,6 +29,7 @@
     "@nestjs/typeorm": "^9.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "json-rules-engine": "^6.1.2",
     "nestjs-pino": "^3.1.1",
     "pg": "^8.8.0",
     "pino-http": "^8.2.0",
@@ -39,6 +40,7 @@
     "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.4.0",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",
