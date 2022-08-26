@@ -50,6 +50,7 @@ export class LoanApplicationService {
     });
 
     newApp.product = product;
+    newApp.termInMonths = product.termInMonths;
     newApp.applicants = await Promise.all(applicants);
     const mergedApp = plainToClassFromExist(newApp, createLoanApplicationDto);
     return this.repo.save(mergedApp);
@@ -127,9 +128,6 @@ export class LoanApplicationService {
     const outcomes = applicantsInfo.map(async (a) => {
       const apr = this.getAPRBasedOnScore(a.creditReportInfo.creditScore);
 
-      // const interest = (application.amount * apr) / 72;
-      // const loanPaymentAmount = (application.amount / 72 + interest).toFixed(2);
-
       const input = plainToClass(EvaluateInputType, {
         creditScore: a.creditReportInfo.creditScore,
         monthlyDebt: a.monthlyDebt,
@@ -141,9 +139,9 @@ export class LoanApplicationService {
         loanPaymentAmount: this.calculateLoanPaymentAmount(
           application.amount,
           apr,
-          72,
+          application.termInMonths,
         ),
-        termsInMonths: 72,
+        termsInMonths: application.termInMonths,
         apr,
       });
       const outcome = await this.desicionMakingengine.evaluate(input);

@@ -20,6 +20,9 @@ export class LoanApplication extends BaseEntity {
   @IsDefined()
   product: Product;
 
+  @Column('int4')
+  termInMonths: number;
+
   @Column('enum', {
     enum: [
       'openned',
