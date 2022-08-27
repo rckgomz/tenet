@@ -1,7 +1,7 @@
 import { Seeder, Factory } from 'typeorm-seeding';
 import { LoanApplication } from '../../entities/loan-application.entity';
 
-export class CreatePerson implements Seeder {
+export class CreateLoanApplication implements Seeder {
   public async run(factory: Factory): Promise<void> {
     Promise.all([
       factory(LoanApplication)().createMany(5),
