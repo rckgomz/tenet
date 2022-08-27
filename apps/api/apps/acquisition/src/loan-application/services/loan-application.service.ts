@@ -1,13 +1,11 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass, plainToClassFromExist } from 'class-transformer';
-import { Repository } from 'typeorm';
 import * as _ from 'lodash';
+import { Repository } from 'typeorm';
 
-import { CreditReportService } from './credit-report.service';
-import { DesicionMakingEngineService } from './desicion-making-engine.service';
-import { LoanOfferService } from './loan-offer.service';
 import { PersonService } from '../../person/person.service';
+import { ProductService } from '../../product/product.service';
 import { CreateLoanApplicationDto } from '../dto/create-loan-application.dto';
 import { CreateLoanOfferDto } from '../dto/create-loan-offer.dto';
 import { UpdateLoanApplicationDto } from '../dto/update-loan-application.dto';
@@ -15,7 +13,9 @@ import { Applicant } from '../entities/applicant.entity';
 import { LoanApplicationStatusType } from '../entities/loan-application-status.type';
 import { LoanApplication } from '../entities/loan-application.entity';
 import { EvaluateInputType } from '../types/evaluate-input.type';
-import { ProductService } from '../../product/product.service';
+import { CreditReportService } from './credit-report.service';
+import { DesicionMakingEngineService } from './desicion-making-engine.service';
+import { LoanOfferService } from './loan-offer.service';
 
 @Injectable()
 export class LoanApplicationService {
@@ -141,7 +141,7 @@ export class LoanApplicationService {
       relations: { loanOffer: true, applicants: true },
     });
 
-    if (['closed', 'approved', 'rejected'].includes(application.status)) {
+    if (['closed', 'approved', 'rejected'].includes(application?.status)) {
       return new HttpException(
         {
           status: HttpStatus.BAD_REQUEST,
@@ -157,7 +157,7 @@ export class LoanApplicationService {
 
     await this.updateStatus(id, 'processing');
     this.logger.log('precessing appplication, gathering all info');
-    const applicantsInfo = application.applicants.map((app) => ({
+    const applicantsInfo = application?.applicants?.map((app) => ({
       ...app,
       creditReportInfo: this.creditReportSvc.getCreditInfo(app?.person?.ssn),
     }));
@@ -167,33 +167,34 @@ export class LoanApplicationService {
 
     const offerDataSeed = [];
 
-    const outcomes = applicantsInfo.map(async (a) => {
-      const apr = this.getAPRBasedOnScore(a.creditReportInfo.creditScore);
+    const outcomes =
+      applicantsInfo?.map(async (a) => {
+        const apr = this.getAPRBasedOnScore(a?.creditReportInfo?.creditScore);
 
-      const input = plainToClass(EvaluateInputType, {
-        creditScore: a.creditReportInfo.creditScore,
-        monthlyDebt: a.monthlyDebt,
-        monthlyIncome: a.monthlyIncome,
-        bankruptcies: a.creditReportInfo.bankruptcies,
-        delinquencies: a.creditReportInfo.delinquencies,
-        itemValue: application.itemValue,
-        loanAmount: application.amount,
-        loanPaymentAmount: this.calculateLoanPaymentAmount(
-          application.amount,
+        const input = plainToClass(EvaluateInputType, {
+          creditScore: a.creditReportInfo?.creditScore,
+          monthlyDebt: a.monthlyDebt,
+          monthlyIncome: a.monthlyIncome,
+          bankruptcies: a.creditReportInfo.bankruptcies,
+          delinquencies: a.creditReportInfo.delinquencies,
+          itemValue: application.itemValue,
+          loanAmount: application.amount,
+          loanPaymentAmount: this.calculateLoanPaymentAmount(
+            application.amount,
+            apr,
+            application.termInMonths,
+          ),
+          termsInMonths: application.termInMonths,
           apr,
-          application.termInMonths,
-        ),
-        termsInMonths: application.termInMonths,
-        apr,
-        appliantId: a.id,
-      });
+          appliantId: a.id,
+        });
 
-      offerDataSeed.push(input);
+        offerDataSeed.push(input);
 
-      const outcome = await this.desicionMakingengine.evaluate(input);
+        const outcome = await this.desicionMakingengine.evaluate(input);
 
-      return outcome;
-    });
+        return outcome;
+      }) || [];
     this.logger.log('application processed');
 
     const _outcomes = (await Promise.all(outcomes)).map((o) => ({
@@ -205,14 +206,14 @@ export class LoanApplicationService {
       accepted: <boolean>(_.meanBy(_outcomes, 'approved') >= 1),
       apr: _.meanBy<number>(offerDataSeed, 'apr'),
       monthlyPayment: _.meanBy(offerDataSeed, 'loanPaymentAmount'),
-      reason: _outcomes.map((o) => o.reason),
+      reason: _outcomes?.map((o) => o.reason),
       applicantFacts: offerDataSeed,
     };
 
     const loanOffer = await this.loanOfferSvc.create(offerData);
-    await this.repo.update(id, { loanOffer: { id: loanOffer.id } });
+    await this.repo.update(id, { loanOffer: { id: loanOffer?.id } });
 
-    if (loanOffer.accepted) {
+    if (loanOffer?.accepted) {
       this.updateStatus(id, 'approved');
     } else {
       this.updateStatus(id, 'rejected');
