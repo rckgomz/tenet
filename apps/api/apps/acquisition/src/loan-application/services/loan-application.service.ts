@@ -1,19 +1,26 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass, plainToClassFromExist } from 'class-transformer';
 import { Repository } from 'typeorm';
+import * as _ from 'lodash';
 import { PersonService } from '../../person';
 import { ProductService } from '../../product';
-import { CreateLoanApplicationDto, UpdateLoanApplicationDto } from '../dto';
+import {
+  CreateLoanApplicationDto,
+  CreateLoanOfferDto,
+  UpdateLoanApplicationDto,
+} from '../dto';
 import {
   LoanApplication,
   Applicant,
   LoanApplicationStatusType,
+  LoanOffer,
 } from '../entities';
 import { EvaluateInputType } from '../types';
 
 import { CreditReportService } from './credit-report.service';
 import { DesicionMakingEngineService } from './desicion-making-engine.service';
+import { LoanOfferService } from './loan-offer.service';
 
 @Injectable()
 export class LoanApplicationService {
@@ -27,12 +34,14 @@ export class LoanApplicationService {
     private readonly personSvc: PersonService,
     private readonly creditReportSvc: CreditReportService,
     private readonly desicionMakingengine: DesicionMakingEngineService,
+    private readonly loanOfferSvc: LoanOfferService,
   ) {
     this.logger = new Logger(LoanApplication.name);
   }
 
   async create(createLoanApplicationDto: CreateLoanApplicationDto) {
     const newApp = this.repo.create({});
+    console.log('%%%%%%here', createLoanApplicationDto.productId);
     const product = await this.productSvc.findOne(
       createLoanApplicationDto.productId,
     );
@@ -79,7 +88,7 @@ export class LoanApplicationService {
   }
 
   getAPRBasedOnScore(score: number) {
-    let apr = 0.1;
+    let apr = 0;
     // this can be extracted to a separete table or resource
     const scale = [
       { min: 780, max: 999, apr: 0.02 },
@@ -113,6 +122,18 @@ export class LoanApplicationService {
       where: { id },
       relations: { loanOffer: true, applicants: true },
     });
+
+    if (['closed', 'approved', 'rejected'].includes(application.status)) {
+      return new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error:
+            'This application is in one of the following status: closed, approved, rejected',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
     await this.updateStatus(id, 'submitted');
     this.logger.log('application recevied, marking as submitted');
 
@@ -125,6 +146,9 @@ export class LoanApplicationService {
     this.logger.log('credit report gathered');
 
     this.logger.log('running engine awaiting for a desicion');
+
+    const offerDataSeed = [];
+
     const outcomes = applicantsInfo.map(async (a) => {
       const apr = this.getAPRBasedOnScore(a.creditReportInfo.creditScore);
 
@@ -143,16 +167,40 @@ export class LoanApplicationService {
         ),
         termsInMonths: application.termInMonths,
         apr,
+        appliantId: a.id,
       });
+
+      offerDataSeed.push(input);
+
       const outcome = await this.desicionMakingengine.evaluate(input);
 
       return outcome;
     });
     this.logger.log('application processed');
 
-    return (await Promise.all(outcomes)).map((o) => ({
+    const _outcomes = (await Promise.all(outcomes)).map((o) => ({
       approved: o.approved,
       reason: o.reason,
     }));
+
+    const offerData: CreateLoanOfferDto = {
+      accepted: <boolean>(_.meanBy(_outcomes, 'approved') >= 1),
+      apr: _.meanBy<number>(offerDataSeed, 'apr'),
+      monthlyPayment: _.meanBy(offerDataSeed, 'loanPaymentAmount'),
+      reason: _outcomes.map((o) => o.reason),
+      applicantFacts: offerDataSeed,
+    };
+
+    const loanOffer = await this.loanOfferSvc.create(offerData);
+    application.loanOffer = loanOffer;
+    this.repo.update(id, application);
+    if (loanOffer.accepted) {
+      this.updateStatus(id, 'approved');
+      this.updateStatus(id, 'closed');
+    } else {
+      this.updateStatus(id, 'rejected');
+    }
+
+    return offerData;
   }
 }

@@ -1,4 +1,4 @@
-import { IsCurrency, IsNumber, Length } from 'class-validator';
+import { IsCurrency, IsNumber, IsUUID, Length } from 'class-validator';
 
 export class EvaluateInputType {
   @IsNumber()
@@ -30,4 +30,7 @@ export class EvaluateInputType {
   apr: number;
 
   termInMonths: number;
+
+  @IsUUID()
+  applicantId: string;
 }

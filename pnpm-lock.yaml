@@ -38,6 +38,7 @@ importers:
       eslint-plugin-prettier: ^4.0.0
       jest: 28.1.2
       json-rules-engine: ^6.1.2
+      lodash: ^4.17.21
       nestjs-pino: ^3.1.1
       pg: ^8.8.0
       pino-http: ^8.2.0
@@ -65,6 +66,7 @@ importers:
       class-transformer: 0.5.1
       class-validator: 0.13.2
       json-rules-engine: 6.1.2
+      lodash: 4.17.21
       nestjs-pino: 3.1.1_i6unz6wuqvgkfrilibx2liv5zi
       pg: 8.8.0
       pino-http: 8.2.0

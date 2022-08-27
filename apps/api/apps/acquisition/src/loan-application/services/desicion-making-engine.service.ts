@@ -11,7 +11,7 @@ export class DesicionMakingEngineService {
 
   async evaluate(input: EvaluateInputType) {
     // remvoe this hard coded values.
-    input.creditScore = 803;
+    input.creditScore = 103;
     input.monthlyDebt = 1500.23;
     input.monthlyIncome = 2000.0;
     input.bankruptcies = 0;

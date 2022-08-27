@@ -8,6 +8,7 @@ import {
   LoanApplicationService,
   DesicionMakingEngineService,
   CreditReportService,
+  LoanOfferService,
 } from './services';
 
 @Module({
@@ -21,6 +22,7 @@ import {
     LoanApplicationService,
     DesicionMakingEngineService,
     CreditReportService,
+    LoanOfferService,
   ],
   exports: [
     LoanApplicationService,
@@ -28,6 +30,7 @@ import {
     PersonModule,
     DesicionMakingEngineService,
     CreditReportService,
+    LoanOfferService,
   ],
 })
 export class LoanApplicationModule {}

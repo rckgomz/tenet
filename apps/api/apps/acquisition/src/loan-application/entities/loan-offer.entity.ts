@@ -1,4 +1,5 @@
 import { BaseEntity } from '@tenet/database';
+import { IsJSON } from 'class-validator';
 import { Column, Entity } from 'typeorm';
 
 @Entity()
@@ -9,12 +10,14 @@ export class LoanOffer extends BaseEntity {
   @Column('decimal')
   monthlyPayment: number;
 
-  @Column('int4')
-  termLengthMont: number;
-
   @Column('boolean')
   accepted: boolean;
 
   @Column('jsonb')
-  reason: Record<string, unknown>;
+  @IsJSON()
+  applicantFacts: any;
+
+  @Column('jsonb')
+  @IsJSON()
+  reason: any;
 }
