@@ -5,6 +5,7 @@ import { Person } from '../../entities/person.entity';
 define(Person, () => {
   const person = new Person();
 
+  person.id = faker.datatype.uuid();
   person.firstName = faker.name.firstName();
   person.lastName = faker.name.lastName();
   person.ssn = faker.random.numeric(9);

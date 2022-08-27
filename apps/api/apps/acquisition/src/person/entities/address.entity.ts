@@ -28,7 +28,7 @@ export class Address extends BaseEntity {
   )
   state: string;
 
-  @Column('varchar', { length: 9 })
+  @Column('varchar', { length: 10 })
   @Transform(({ value }: { value: string }) => value?.toUpperCase())
   @IsPostalCode('US')
   zipCode: string;
