@@ -15,6 +15,7 @@ import { Applicant } from '../entities/applicant.entity';
 import { LoanApplicationStatusType } from '../entities/loan-application-status.type';
 import { LoanApplication } from '../entities/loan-application.entity';
 import { EvaluateInputType } from '../types/evaluate-input.type';
+import { ProductService } from '../../product/product.service';
 
 @Injectable()
 export class LoanApplicationService {
@@ -24,7 +25,7 @@ export class LoanApplicationService {
     private readonly repo: Repository<LoanApplication>,
     @InjectRepository(Applicant)
     private readonly applicantRepo: Repository<Applicant>,
-    private readonly productSvc: any,
+    private readonly productSvc: ProductService,
     private readonly personSvc: PersonService,
     private readonly creditReportSvc: CreditReportService,
     private readonly desicionMakingengine: DesicionMakingEngineService,
