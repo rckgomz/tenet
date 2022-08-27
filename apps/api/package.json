@@ -18,7 +18,16 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./apps/acquisition/test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/acquisition/test/jest-e2e.json",
+    "migrate:create": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli.js migrations:create",
+    "migrate:generate": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli.js migrations:generate -d ./datasource.ts",
+    "migrate:run": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli.js migration:run -d ./datasource.ts",
+    "schema:drop": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli.js schema:drop -d ./datasource.ts",
+    "schema:sync": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli.js schema:sync -d ./datasource.ts",
+    "schema:log": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli.js schema:log -d ./datasource.ts",
+    "seed:run": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm-seeding/dist/cli.js seed",
+    "seed:config": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm-seeding/dist/cli.js config",
+    "db:setup": "pnpm schema:drop && pnpm schema:sync && pnpm seed:run"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
@@ -29,6 +38,7 @@
     "@nestjs/typeorm": "^9.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
+    "dotenv": "^16.0.1",
     "json-rules-engine": "^6.1.2",
     "lodash": "^4.17.21",
     "nestjs-pino": "^3.1.1",
@@ -64,6 +74,7 @@
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
     "tsconfig-paths": "4.0.0",
+    "typeorm-seeding": "^1.6.1",
     "typescript": "^4.3.5"
   },
   "jest": {
