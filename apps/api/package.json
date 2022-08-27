@@ -27,7 +27,8 @@
     "schema:log": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli.js schema:log -d ./datasource.ts",
     "seed:run": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm-seeding/dist/cli.js seed",
     "seed:config": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm-seeding/dist/cli.js config",
-    "db:setup": "pnpm schema:drop && pnpm schema:sync && pnpm seed:run"
+    "db:setup": "pnpm schema:drop && pnpm schema:sync && pnpm seed:run",
+    "start:demo": "pnpm db:setup && pnpm start:dev:acquisition"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
