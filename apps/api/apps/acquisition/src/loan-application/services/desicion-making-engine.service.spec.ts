@@ -17,11 +17,13 @@ const reasonType = {
   APPROVED: 'Loan Approved',
   DENIED: 'Loan Denied',
 };
-const extractCategory = (type: string) => (reason) =>
-  _.chain(reason)
+const extractCategory = (type: string) => (reasons) => {
+  const reason = _.chain(reasons)
     .find((r: { type: string }) => r.type === type)
-    .get('params.category')
     .value();
+
+  return _.get(reason, 'params.category');
+};
 
 const extractApproveCategory = (reason: Event[]) =>
   extractCategory(reasonType.APPROVED)(reason);
