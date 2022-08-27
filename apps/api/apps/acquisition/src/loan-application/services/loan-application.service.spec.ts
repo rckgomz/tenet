@@ -63,4 +63,23 @@ describe('LoanApplicationService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('getARPBasedOnScore', () => {
+    it('should reutrn an 0.02 as APR if score is 780 and 999', () => {
+      const apr = service.getAPRBasedOnScore(781);
+      expect(apr).toBe(0.02);
+    });
+    it('should reutrn an 0.05 as APR if score is between 720 and 779', () => {
+      const apr = service.getAPRBasedOnScore(722);
+      expect(apr).toBe(0.05);
+    });
+    it('should reutrn an 0.08 as APR if score is between 660 and 719', () => {
+      const apr = service.getAPRBasedOnScore(670);
+      expect(apr).toBe(0.08);
+    });
+    it('should reutrn an 0 as APR if score is below 660', () => {
+      const apr = service.getAPRBasedOnScore(640);
+      expect(apr).toBe(0);
+    });
+  });
 });
