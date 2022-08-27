@@ -39,7 +39,18 @@ export class LoanApplicationService {
     const product = await this.productSvc.findOne(
       createLoanApplicationDto.productId,
     );
-    const applicants = createLoanApplicationDto.applicants.map(async (dto) => {
+
+    if (_.isNull(product) || _.isUndefined(product)) {
+      return new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error:
+            'product was not found, you cannot create an application without a product',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const applicants = createLoanApplicationDto.applicants?.map(async (dto) => {
       const newApplicant = this.applicantRepo.create();
       const mergedApplicant = plainToClassFromExist(newApplicant, dto);
 
@@ -53,7 +64,7 @@ export class LoanApplicationService {
     });
 
     newApp.product = product;
-    newApp.termInMonths = product.termInMonths;
+    newApp.termInMonths = product?.termInMonths;
     newApp.applicants = await Promise.all(applicants);
     const mergedApp = plainToClassFromExist(newApp, createLoanApplicationDto);
     return this.repo.save(mergedApp);

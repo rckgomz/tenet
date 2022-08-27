@@ -1,5 +1,7 @@
+import { HttpException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Email } from '../person/entities/email.entity';
 import { Person } from '../person/entities/person.entity';
 import { PhoneNumber } from '../person/entities/phone.entity';
@@ -18,14 +20,20 @@ import { LoanOfferService } from './services/loan-offer.service';
 describe('LoanApplicationController', () => {
   let controller: LoanApplicationController;
 
+  const LOAN_APPLICATION_REPOSITORY_TOKEN = getRepositoryToken(LoanApplication);
+  let applicationRepo: Repository<LoanApplication>;
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [LoanApplicationController],
       providers: [
         LoanApplicationService,
         {
-          provide: getRepositoryToken(LoanApplication),
-          useValue: {},
+          provide: LOAN_APPLICATION_REPOSITORY_TOKEN,
+          useValue: {
+            create: jest.fn(),
+            save: jest.fn(),
+          },
         },
         {
           provide: getRepositoryToken(Applicant),
@@ -37,7 +45,9 @@ describe('LoanApplicationController', () => {
         },
         {
           provide: getRepositoryToken(Product),
-          useValue: {},
+          useValue: {
+            findOneBy: jest.fn(),
+          },
         },
         {
           provide: getRepositoryToken(Person),
@@ -62,9 +72,42 @@ describe('LoanApplicationController', () => {
     controller = module.get<LoanApplicationController>(
       LoanApplicationController,
     );
+    applicationRepo = module.get<Repository<LoanApplication>>(
+      LOAN_APPLICATION_REPOSITORY_TOKEN,
+    );
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
+    expect(applicationRepo).toBeDefined();
+  });
+
+  describe('create a loan application', () => {
+    it('should fail if product is not present', async () => {
+      const appId = '1234';
+      jest.spyOn(applicationRepo, 'create').mockReturnValue({
+        amount: 2,
+        applicants: [],
+        product: null,
+        termInMonths: 72,
+        itemValue: 100,
+        loanOffer: null,
+        status: 'openned',
+        id: appId,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        deletedAt: new Date(),
+        version: 1,
+      });
+
+      const app = await controller.create({
+        productId: null,
+        applicants: [],
+        amount: 100,
+        itemValue: 122,
+      });
+
+      expect(app).toBeInstanceOf(HttpException);
+    });
   });
 });
