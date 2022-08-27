@@ -11,6 +11,7 @@ define(LoanOffer, () => {
   loanOffer.accepted = false;
   loanOffer.reason = {};
   loanOffer.applicantFacts = {};
+  loanOffer.monthlyPayment = _.toNumber(faker.commerce.price(1000, 5000));
 
   return loanOffer;
 });

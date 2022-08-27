@@ -1,9 +1,9 @@
 import { DataSource } from 'typeorm';
 import { Seeder, Factory } from 'typeorm-seeding';
-import { Address } from '../../entities/address.entity';
-import { Email } from '../../entities/email.entity';
-import { Person } from '../../entities/person.entity';
-import { PhoneNumber } from '../../entities/phone.entity';
+import { Address } from '../../../person/entities/address.entity';
+import { Email } from '../../../person/entities/email.entity';
+import { Person } from '../../../person/entities/person.entity';
+import { PhoneNumber } from '../../../person/entities/phone.entity';
 import { seedData as seed } from '../../../database/seed';
 
 export class CreatePerson implements Seeder {
