@@ -1,7 +1,7 @@
 import { BaseEntity } from '@tenet/database';
 import { IsNumberString, IsOptional } from 'class-validator';
 import { Column, Entity, Index, OneToMany } from 'typeorm';
-import { Applicant } from '../../loan-application';
+import { Applicant } from '../../loan-application/entities/applicant.entity';
 import { Address } from './address.entity';
 import { Email } from './email.entity';
 import { PhoneNumber } from './phone.entity';

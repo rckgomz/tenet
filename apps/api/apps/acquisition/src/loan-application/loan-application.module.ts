@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { LoanApplicationController } from './loan-application.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Applicant, LoanApplication, LoanOffer } from './entities';
-import { ProductModule } from '../product';
-import { PersonModule } from '../person';
-import {
-  LoanApplicationService,
-  DesicionMakingEngineService,
-  CreditReportService,
-  LoanOfferService,
-} from './services';
+import { PersonModule } from '../person/person.module';
+import { ProductModule } from '../product/product.module';
+import { Applicant } from './entities/applicant.entity';
+import { LoanApplication } from './entities/loan-application.entity';
+import { LoanOffer } from './entities/loan-offer.entity';
+import { CreditReportService } from './services/credit-report.service';
+import { DesicionMakingEngineService } from './services/desicion-making-engine.service';
+import { LoanApplicationService } from './services/loan-application.service';
+import { LoanOfferService } from './services/loan-offer.service';
 
 @Module({
   imports: [

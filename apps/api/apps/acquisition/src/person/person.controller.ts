@@ -8,15 +8,13 @@ import {
   Delete,
 } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
+import { CreateEmailDto } from './dto/create-email.dto';
+import { CreatePersonDto } from './dto/create-person.dto';
+import { CreatePhoneNumberDto } from './dto/create-phone-number.dto';
+import { ReturnEmailDto } from './dto/return-email.dto';
+import { ReturnPersonDto } from './dto/return-person.dto';
+import { UpdatePersonDto } from './dto/update-person.dto';
 import { PersonService } from './person.service';
-import {
-  CreateEmailDto,
-  CreatePersonDto,
-  CreatePhoneNumberDto,
-  ReturnEmailDto,
-  ReturnPersonDto,
-  UpdatePersonDto,
-} from './dto';
 
 @Controller('persons')
 export class PersonController {

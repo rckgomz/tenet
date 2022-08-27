@@ -1,6 +1,6 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsEnum, IsPhoneNumber } from 'class-validator';
-import { PhoneNumberType } from '../types';
+import { PhoneNumberType } from '../types/PhoneNumberType';
 
 @Exclude()
 export class CreatePhoneNumberDto {

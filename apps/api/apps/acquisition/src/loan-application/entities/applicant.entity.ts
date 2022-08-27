@@ -1,7 +1,7 @@
 import { BaseEntity } from '@tenet/database';
 import { IsCurrency, IsDefined, IsNotEmpty } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { Person } from '../../person/entities';
+import { Person } from '../../person/entities/person.entity';
 import { LoanApplication } from './loan-application.entity';
 
 @Entity()

@@ -8,8 +8,10 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { CreateProductDto, ReturnProductDto, UpdateProductDto } from './dto';
 import { plainToClass } from 'class-transformer';
+import { CreateProductDto } from './dto/create-product.dto';
+import { ReturnProductDto } from './dto/return-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 @Controller('products')
 export class ProductController {

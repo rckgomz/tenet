@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Engine } from 'json-rules-engine';
-import { EvaluateInputType } from '../types';
+import { EvaluateInputType } from '../types/evaluate-input.type';
 
 @Injectable()
 export class DesicionMakingEngineService {

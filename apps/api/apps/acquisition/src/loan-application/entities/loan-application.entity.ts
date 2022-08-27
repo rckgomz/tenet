@@ -8,7 +8,7 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
-import { Product } from '../../product';
+import { Product } from '../../product/entities/product.entity';
 import { Applicant } from './applicant.entity';
 import { LoanApplicationStatusType } from './loan-application-status.type';
 import { LoanOffer } from './loan-offer.entity';

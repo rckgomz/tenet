@@ -7,8 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CreateLoanApplicationDto, UpdateLoanApplicationDto } from './dto';
-import { LoanApplicationService } from './services';
+import { CreateLoanApplicationDto } from './dto/create-loan-application.dto';
+import { UpdateLoanApplicationDto } from './dto/update-loan-application.dto';
+import { LoanApplicationService } from './services/loan-application.service';
 
 @Controller('loan-applications')
 export class LoanApplicationController {

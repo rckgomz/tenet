@@ -1,6 +1,6 @@
 import { Exclude, Expose, Transform } from 'class-transformer';
 import { IsEmail, IsEnum } from 'class-validator';
-import { EmailType } from '../types';
+import { EmailType } from '../types/email.type';
 
 @Exclude()
 export class CreateEmailDto {

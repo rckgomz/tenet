@@ -2,8 +2,9 @@ import { BaseEntity } from '@tenet/database';
 import { Transform } from 'class-transformer';
 import { IsPhoneNumber } from 'class-validator';
 import { Column, Entity, Index, ManyToOne } from 'typeorm';
+import { PhoneNumberType } from '../types/PhoneNumberType';
+import { PhoneType } from '../types/PhoneType';
 import { Person } from './person.entity';
-import { PhoneNumberType, PhoneType } from '../types';
 
 @Entity()
 @Index(['person.id', 'value'], { unique: true })

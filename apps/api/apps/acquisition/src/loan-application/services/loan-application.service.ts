@@ -3,24 +3,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass, plainToClassFromExist } from 'class-transformer';
 import { Repository } from 'typeorm';
 import * as _ from 'lodash';
-import { PersonService } from '../../person';
-import { ProductService } from '../../product';
-import {
-  CreateLoanApplicationDto,
-  CreateLoanOfferDto,
-  UpdateLoanApplicationDto,
-} from '../dto';
-import {
-  LoanApplication,
-  Applicant,
-  LoanApplicationStatusType,
-  LoanOffer,
-} from '../entities';
-import { EvaluateInputType } from '../types';
 
 import { CreditReportService } from './credit-report.service';
 import { DesicionMakingEngineService } from './desicion-making-engine.service';
 import { LoanOfferService } from './loan-offer.service';
+import { PersonService } from '../../person/person.service';
+import { CreateLoanApplicationDto } from '../dto/create-loan-application.dto';
+import { CreateLoanOfferDto } from '../dto/create-loan-offer.dto';
+import { UpdateLoanApplicationDto } from '../dto/update-loan-application.dto';
+import { Applicant } from '../entities/applicant.entity';
+import { LoanApplicationStatusType } from '../entities/loan-application-status.type';
+import { LoanApplication } from '../entities/loan-application.entity';
+import { EvaluateInputType } from '../types/evaluate-input.type';
 
 @Injectable()
 export class LoanApplicationService {
@@ -30,7 +24,7 @@ export class LoanApplicationService {
     private readonly repo: Repository<LoanApplication>,
     @InjectRepository(Applicant)
     private readonly applicantRepo: Repository<Applicant>,
-    private readonly productSvc: ProductService,
+    private readonly productSvc: any,
     private readonly personSvc: PersonService,
     private readonly creditReportSvc: CreditReportService,
     private readonly desicionMakingengine: DesicionMakingEngineService,

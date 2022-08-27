@@ -2,7 +2,7 @@ import { BaseEntity } from '@tenet/database';
 import { Transform } from 'class-transformer';
 import { IsEmail } from 'class-validator';
 import { Column, Entity, Index, ManyToOne } from 'typeorm';
-import { EmailType } from '../types';
+import { EmailType } from '../types/email.type';
 import { Person } from './person.entity';
 
 @Entity()

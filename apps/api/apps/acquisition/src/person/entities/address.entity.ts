@@ -2,7 +2,7 @@ import { BaseEntity } from '@tenet/database';
 import { Transform } from 'class-transformer';
 import { IsPostalCode, Matches } from 'class-validator';
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { AddressType } from '../types';
+import { AddressType } from '../types/address.type';
 import { Person } from './person.entity';
 
 @Entity()

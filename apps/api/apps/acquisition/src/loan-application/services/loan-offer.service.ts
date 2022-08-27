@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClassFromExist } from 'class-transformer';
 import { Repository } from 'typeorm';
-import { CreateLoanOfferDto, UpdateLoanOfferDto } from '../dto';
-import { LoanOffer } from '../entities';
+import { CreateLoanOfferDto } from '../dto/create-loan-offer.dto';
+import { UpdateLoanOfferDto } from '../dto/update-loan-offer.dto';
+import { LoanOffer } from '../entities/loan-offer.entity';
 
 @Injectable()
 export class LoanOfferService {

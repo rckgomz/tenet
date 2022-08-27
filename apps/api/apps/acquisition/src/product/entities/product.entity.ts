@@ -1,6 +1,6 @@
 import { BaseEntity } from '@tenet/database';
 import { Column, Entity, OneToMany } from 'typeorm';
-import { LoanApplication } from '../../loan-application';
+import { LoanApplication } from '../../loan-application/entities/loan-application.entity';
 import { ProductType } from './product.type';
 
 @Entity()
