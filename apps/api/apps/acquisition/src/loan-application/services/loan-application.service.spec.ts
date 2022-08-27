@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Email } from '../../person/entities/email.entity';
 import { Person } from '../../person/entities/person.entity';
 import { PhoneNumber } from '../../person/entities/phone.entity';
@@ -16,14 +17,18 @@ import { LoanOfferService } from './loan-offer.service';
 
 describe('LoanApplicationService', () => {
   let service: LoanApplicationService;
+  let applicationRepo: Repository<LoanApplication>;
+  const LOAN_APPLICATION_REPOSITORY_TOKEN = getRepositoryToken(LoanApplication);
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         LoanApplicationService,
         {
-          provide: getRepositoryToken(LoanApplication),
-          useValue: {},
+          provide: LOAN_APPLICATION_REPOSITORY_TOKEN,
+          useValue: {
+            findOne: jest.fn(),
+          },
         },
         {
           provide: getRepositoryToken(Applicant),
@@ -58,10 +63,14 @@ describe('LoanApplicationService', () => {
     }).compile();
 
     service = module.get<LoanApplicationService>(LoanApplicationService);
+    applicationRepo = module.get<Repository<LoanApplication>>(
+      LOAN_APPLICATION_REPOSITORY_TOKEN,
+    );
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+    expect(applicationRepo).toBeDefined();
   });
 
   describe('getARPBasedOnScore', () => {
@@ -81,5 +90,40 @@ describe('LoanApplicationService', () => {
       const apr = service.getAPRBasedOnScore(640);
       expect(apr).toBe(0);
     });
+  });
+
+  describe('calculateLoanPaymentAmount', () => {
+    it('it should work', () => {
+      const loanPaymentAmount = service.calculateLoanPaymentAmount(
+        1000,
+        0.02,
+        72,
+      );
+      expect(loanPaymentAmount).toBe('14.17');
+    });
+    it('it throw an error if term in months is equal to zero', () => {
+      const t = () => service.calculateLoanPaymentAmount(1000, 0.02, 0);
+      expect(t).toThrow(Error);
+    });
+    it('it throw an error if term in months is less to zero', () => {
+      const t = () => service.calculateLoanPaymentAmount(1000, 0.02, -1);
+      expect(t).toThrow(Error);
+    });
+    it('should success if APR is zero since that will make interest zero', () => {
+      const loanPaymentAmount = service.calculateLoanPaymentAmount(1000, 0, 11);
+      expect(loanPaymentAmount).toBe('90.91');
+    });
+    it('it throw an error if loan amount is less to zero', () => {
+      const t = () => service.calculateLoanPaymentAmount(-1, 0.02, -1);
+      expect(t).toThrow(Error);
+    });
+    it('it throw an error if loan amount is equals to zero', () => {
+      const t = () => service.calculateLoanPaymentAmount(0, 0.02, -1);
+      expect(t).toThrow(Error);
+    });
+  });
+
+  describe('submitLoanApplication', () => {
+    it('should return an error if application is closed or approved or rejected', () => {});
   });
 });

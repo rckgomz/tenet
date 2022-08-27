@@ -118,6 +118,13 @@ export class LoanApplicationService {
     apr: number,
     termInMonths: number,
   ) {
+    if (termInMonths <= 0) {
+      throw new Error('termInMonths needs to be greather than zero');
+    }
+
+    if (loanAmount <= 0) {
+      throw new Error('loan amount needs to be greather than zero');
+    }
     const interest = (loanAmount * apr) / termInMonths;
     const loanPaymentAmount = (loanAmount / termInMonths + interest).toFixed(2);
     return loanPaymentAmount;
