@@ -36,7 +36,6 @@ export class LoanApplicationService {
 
   async create(createLoanApplicationDto: CreateLoanApplicationDto) {
     const newApp = this.repo.create({});
-    console.log('%%%%%%here', createLoanApplicationDto.productId);
     const product = await this.productSvc.findOne(
       createLoanApplicationDto.productId,
     );
@@ -82,6 +81,11 @@ export class LoanApplicationService {
     });
   }
 
+  /**
+   * Given a score return an APR base on an scale
+   * @param score {number} score to be evaluated
+   * @returns {number} an APR
+   */
   getAPRBasedOnScore(score: number) {
     let apr = 0;
     // this can be extracted to a separete table or resource
@@ -102,6 +106,13 @@ export class LoanApplicationService {
     return apr;
   }
 
+  /**
+   * Calculate the loan payment based on terms in months
+   * @param loanAmount {number} amount of the loan
+   * @param apr {number} the APR used
+   * @param termInMonths {number} the loan terms in months
+   * @returns {number} montntly payment (loan amount / termsInMonths + interest)
+   */
   calculateLoanPaymentAmount(
     loanAmount: number,
     apr: number,
@@ -112,6 +123,11 @@ export class LoanApplicationService {
     return loanPaymentAmount;
   }
 
+  /**
+   * Submit the application to process an outcome
+   * @param id {string} loan application id
+   * @returns return an outcome (approve/denied)
+   */
   async submitLoanApplication(id: string) {
     const application = await this.repo.findOne({
       where: { id },

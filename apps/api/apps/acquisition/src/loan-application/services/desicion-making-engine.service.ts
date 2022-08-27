@@ -9,6 +9,11 @@ export class DesicionMakingEngineService {
     this.logger = new Logger(DesicionMakingEngineService.name);
   }
 
+  /**
+   * Evaluate the appliaction and procedure an approve or deny outcome
+   * @param input {EvaluateInputType} payload used for the decision
+   * @returns an outcome
+   */
   async evaluate(input: EvaluateInputType) {
     const engine = new Engine();
 
