@@ -6,7 +6,7 @@ define(PhoneNumber, () => {
   const phoneNumber = new PhoneNumber();
 
   phoneNumber.id = faker.datatype.uuid();
-  phoneNumber.value = faker.phone.number();
+  phoneNumber.value = faker.phone.number('##########');
   phoneNumber.type = 'primary';
 
   return phoneNumber;
