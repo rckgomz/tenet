@@ -7,7 +7,6 @@ import { PhoneNumber } from '../../entities/phone.entity';
 
 export class CreatePerson implements Seeder {
   public async run(factory: Factory, ds: DataSource): Promise<void> {
-    // await ds.manager.clear(Person);
     const seed = [
       { id: 'fb414ddc-6e3b-4859-bb45-56d7389a64ba', firstName: 'Adam' },
       { id: '0c7c7cd5-058a-4fa1-8d91-f5364757a11c', firstName: 'Barry' },
