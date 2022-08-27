@@ -10,17 +10,6 @@ export class DesicionMakingEngineService {
   }
 
   async evaluate(input: EvaluateInputType) {
-    // remvoe this hard coded values.
-    input.creditScore = 103;
-    input.monthlyDebt = 1500.23;
-    input.monthlyIncome = 2000.0;
-    input.bankruptcies = 0;
-    input.delinquencies = 0;
-    input.itemValue = 5000.0;
-    input.loanAmount = 3000.0;
-    input.loanPaymentAmount = 42.5;
-    input.apr = 0.02;
-
     const engine = new Engine();
 
     this.logger.log('adding rule to engine: Any bankruptcies reported');
@@ -36,7 +25,7 @@ export class DesicionMakingEngineService {
         ],
       },
       event: {
-        type: 'Loand Denied',
+        type: 'Loan Denied',
         params: {
           category: 'bankruptcies',
           message: 'Some bankruptcies has been reported',
@@ -58,7 +47,7 @@ export class DesicionMakingEngineService {
         ],
       },
       event: {
-        type: 'Loand Denied',
+        type: 'Loan Denied',
         params: {
           category: 'delinquencies',
           message: 'Some delinquencies has been reported',
@@ -78,7 +67,7 @@ export class DesicionMakingEngineService {
         ],
       },
       event: {
-        type: 'Loand Denied',
+        type: 'Loan Denied',
         params: {
           category: 'low_credit_score',
           message: 'Low credit score',
@@ -98,7 +87,7 @@ export class DesicionMakingEngineService {
         ],
       },
       event: {
-        type: 'Loand Denied',
+        type: 'Loan Denied',
         params: {
           category: 'debt_to_income_ratio_exceeds',
           message: 'Debt-to-income ratio exceeds 60%',
@@ -118,7 +107,7 @@ export class DesicionMakingEngineService {
         ],
       },
       event: {
-        type: 'Loand Denied',
+        type: 'Loan Denied',
         params: {
           category: 'loan_to_value_ratio_exceeds',
           message: 'Loan-to-value ratio exceeds 100%',
@@ -148,6 +137,9 @@ export class DesicionMakingEngineService {
       return almanac
         .factValue('input')
         .then((x: EvaluateInputType) => {
+          if (x.monthlyDebt === x.monthlyIncome) {
+            return 100;
+          }
           const op =
             ((+x.loanPaymentAmount.valueOf() +
               +x.monthlyDebt.valueOf() -
@@ -166,7 +158,12 @@ export class DesicionMakingEngineService {
       reason:
         outcome?.events?.length > 0
           ? outcome?.events
-          : [{ type: 'Loan Aproved', params: { message: 'Congrats!!' } }],
+          : [
+              {
+                type: 'Loan Approved',
+                params: { category: 'good', message: 'Congrats!!' },
+              },
+            ],
       rawOutcome: JSON.parse(JSON.stringify(outcome)),
     };
 
