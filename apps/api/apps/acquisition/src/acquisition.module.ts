@@ -4,7 +4,7 @@ import { DatabaseModule } from '@tenet/database';
 import { LoggerModule } from 'nestjs-pino';
 import { AcquisitionController } from './acquisition.controller';
 import { AcquisitionService } from './acquisition.service';
-import { LoanApplicationModule } from './loan-application';
+import { LoanApplicationModule } from './loan-application/loan-application.module';
 
 @Module({
   imports: [
