@@ -192,11 +192,10 @@ export class LoanApplicationService {
     };
 
     const loanOffer = await this.loanOfferSvc.create(offerData);
-    application.loanOffer = loanOffer;
-    this.repo.update(id, application);
+    await this.repo.update(id, { loanOffer: { id: loanOffer.id } });
+
     if (loanOffer.accepted) {
       this.updateStatus(id, 'approved');
-      this.updateStatus(id, 'closed');
     } else {
       this.updateStatus(id, 'rejected');
     }
