@@ -1,0 +1,636 @@
+{
+	"info": {
+		"_postman_id": "c39aad8a-2a0b-4dbb-84d7-052fc75850e1",
+		"name": "acquisition",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12899138"
+	},
+	"item": [
+		{
+			"name": "person",
+			"item": [
+				{
+					"name": "email",
+					"item": [
+						{
+							"name": "get email",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/v1/persons/{{createdPersonId}}/emails/{{createdEmailId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"persons",
+										"{{createdPersonId}}",
+										"emails",
+										"{{createdEmailId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get emails",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/v1/persons/{{createdPersonId}}/emails",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"persons",
+										"{{createdPersonId}}",
+										"emails"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add email to created person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();",
+											"pm.collectionVariables.set('createdEmailId', responseJson.id)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"secondary\",\n    \"email\":\"{{$randomExampleEmail}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/v1/persons/{{createdPersonId}}/emails",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"persons",
+										"{{createdPersonId}}",
+										"emails"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "phone-number",
+					"item": [
+						{
+							"name": "get phone-number",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/v1/persons/{{createdPersonId}}/phone-numbers/{{createdPhoneNumberId}}",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"persons",
+										"{{createdPersonId}}",
+										"phone-numbers",
+										"{{createdPhoneNumberId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get phone-numbers",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/v1/persons/{{createdPersonId}}/phone-numbers",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"persons",
+										"{{createdPersonId}}",
+										"phone-numbers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "add phone-number to created person",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();",
+											"pm.collectionVariables.set('createdPhoneNumberId', responseJson.id)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"secondary\",\n    \"number\":\"{{$randomPhoneNumber}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:8080/api/v1/persons/{{createdPersonId}}/phone-numbers",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"persons",
+										"{{createdPersonId}}",
+										"phone-numbers"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create person",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"pm.collectionVariables.set('createdPersonId', responseJson.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"primaryEmail\": \"{{$randomExampleEmail}}\",\n    \"primaryPhoneNumber\": \"{{$randomPhoneNumber}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/persons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all persons",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/persons",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"persons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get created person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/persons/{{createdPersonId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"persons",
+								"{{createdPersonId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "create product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"pm.collectionVariables.set('createdProductId', responseJson.id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomProductName}}\",\n    \"type\": \"car\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"pm.collectionVariables.set('createdProductId', responseJson.id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"pm.collectionVariables.set('createdProductId', responseJson.id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/products",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update  created product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"pm.collectionVariables.set('createdProductId', responseJson.id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"{{$randomProductName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/products/{{createdProductId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"{{createdProductId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete created product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"pm.collectionVariables.set('createdProductId', responseJson.id)"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/products/{{createdProductId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"{{createdProductId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "loan application",
+			"item": [
+				{
+					"name": "create a loan appl",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();",
+									"pm.collectionVariables.set('createdLoanApplicationId', responseJson.id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": \"{{createdProductId}}\",\n    \"applicants\": [\n        {\n            \"personId\": \"{{createdPersonId}}\",\n            \"monthlyDebt\": \"{{$randomPrice}}\",\n            \"monthlyIncome\": \"{{$randomPrice}}\"\n        }\n    ],\n    \"amount\": \"{{$randomPrice}}\",\n    \"itemValue\": \"{{$randomPrice}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/loan-applications",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"loan-applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "submit loan application",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/loan-applications/{{createdLoanApplicationId}}/submit",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"loan-applications",
+								"{{createdLoanApplicationId}}",
+								"submit"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "createdPersonId",
+			"value": ""
+		},
+		{
+			"key": "createdPhoneNumberId",
+			"value": ""
+		},
+		{
+			"key": "createdEmailId",
+			"value": ""
+		},
+		{
+			"key": "createdProductId",
+			"value": ""
+		},
+		{
+			"key": "createdLoanApplicationId",
+			"value": ""
+		}
+	]
+}

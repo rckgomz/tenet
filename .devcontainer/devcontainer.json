@@ -15,7 +15,8 @@
       "extensions": [
 		"dbaeumer.vscode-eslint",
 		"esbenp.prettier-vscode",
-		"marclipovsky.string-manipulation"
+		"marclipovsky.string-manipulation",
+		"dineug.vuerd-vscode"
 	]
     }
   },
