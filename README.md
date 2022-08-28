@@ -1,6 +1,6 @@
-[![Open in Remote - Containers](https://img.shields.io/static/v1?label=Remote%20-%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/microsoft/vscode-remote-try-java)
+[![Open in Remote - Containers](https://img.shields.io/static/v1?label=Remote%20-%20Containers&message=Open&color=blue&logo=visualstudiocode)](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/rckgomz/tenet)
 
-If you already have VS Code and Docker installed, you can click the badge above or [here](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/microsoft/vscode-remote-try-java) to get started. Clicking these links will cause VS Code to automatically install the Remote - Containers extension if needed, clone the source code into a container volume, and spin up a dev container for use.
+If you already have VS Code and Docker installed, you can click the badge above or [here](https://vscode.dev/redirect?url=vscode://ms-vscode-remote.remote-containers/cloneInVolume?url=https://github.com/rckgomz/tenet) to get started. Clicking these links will cause VS Code to automatically install the Remote - Containers extension if needed, clone the source code into a container volume, and spin up a dev container for use.
 
 # Tenet: BE Technical Assignment
 
@@ -130,8 +130,8 @@ Mapped {/api/persons/:id/phone-numbers/:phoneNumberId, GET} (version: 1) route
 
 ### Database Diagaram
 
-![DB Diagram](vscode-remote://dev-container%2B2f686f6d652f657269636b2f70726f6a656374732f74656e6574/workspace/db-diagram.png)
+![DB Diagram](https://github.com/rckgomz/tenet/blob/main/db-diagram.png)
 
 ### Postman Collection Attached
 
-[Postman](vscode-remote://dev-container%2B2f686f6d652f657269636b2f70726f6a656374732f74656e6574/workspace/acquisition.postman_collection.json)
+[Postman](https://github.com/rckgomz/tenet/blob/main/acquisition.postman_collection.json)
